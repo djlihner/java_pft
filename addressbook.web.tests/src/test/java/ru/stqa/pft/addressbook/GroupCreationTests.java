@@ -1,14 +1,11 @@
 package ru.stqa.pft.addressbook;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
 import org.testng.annotations.*;
-import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
-import javax.management.remote.rmi.RMIConnectionImpl;
 
 public class GroupCreationTests {
 
@@ -16,13 +13,13 @@ public class GroupCreationTests {
 
   @BeforeClass
   public void setUp() throws Exception {
-//    System.setProperty("webdriver.chrome.driver", "D:\\Java\\chromedriver\\chromedriver.exe");
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    // вход в addressbook
+    loginInAddressbook();
   }
 
-  @Test
-  public void testUntitledTestCase() throws Exception {
+  private void loginInAddressbook() {
     driver.get("http://localhost/addressbook/group.php");
     driver.findElement(By.name("user")).clear();
     driver.findElement(By.name("user")).sendKeys("admin");
@@ -31,6 +28,10 @@ public class GroupCreationTests {
     driver.findElement(By.name("pass")).clear();
     driver.findElement(By.name("pass")).sendKeys("secret");
     driver.findElement(By.xpath("//input[@value='Login']")).click();
+  }
+
+  @Test
+  public void testGroupCreation() {
     driver.findElement(By.linkText("groups")).click();
     driver.findElement(By.name("new")).click();
     driver.findElement(By.name("group_name")).click();
@@ -46,43 +47,17 @@ public class GroupCreationTests {
     driver.findElement(By.linkText("group page")).click();
   }
 
-
-  @AfterClass(alwaysRun = true)
-  public void tearDown() throws Exception {
+  @AfterClass
+  public void tearDown() {
     driver.quit();
   }
-}
-//
-//  private boolean isElementPresent(By by) {
-//    try {
-//      driver.findElement(by);
-//      return true;
-//    } catch (NoSuchElementException e) {
-//      return false;
-//    }
-//  }
-//
-//  private boolean isAlertPresent() {
-//    try {
-//      driver.switchTo().alert();
-//      return true;
-//    } catch (NoAlertPresentException e) {
-//      return false;
-//    }
-//  }
-//
-//  private String closeAlertAndGetItsText() {
-//    try {
-//      Alert alert = driver.switchTo().alert();
-//      String alertText = alert.getText();
-//      if (acceptNextAlert) {
-//        alert.accept();
-//      } else {
-//        alert.dismiss();
-//      }
-//      return alertText;
-//    } finally {
-//      acceptNextAlert = true;
-//    }
-//  }
 
+  private boolean isAlertPresent(ChromeDriver driver) {
+    try {
+      driver.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
+}
