@@ -7,23 +7,20 @@ public class MyFirstProgram {
     hello("Me");
     hello("Day");
 
-    double l = 5;
-    System.out.println("Площадь квадрата со стороной " + l + " равна " + area(l));
+    Square square = new Square(5);
+    System.out.println("Площадь квадрата со стороной " + square.l + " равна " + square.area());
 
-    double a = 4;
-    double b = 6;
-    System.out.println("Площадь прямоугольника со сторонами " + a + " и " + b + " равна " + area(a, b));
+    Rectangle rectangle = new Rectangle(4, 6);
+    System.out.println("Площадь прямоугольника со сторонами " + rectangle.a + " и " + rectangle.b + " равна " + rectangle.area());
+
+    Point point1 = new Point(3.1,4.4);
+    Point point2 = new Point(2.3,5.3);
+
+    System.out.println("Расстояние между двумя точками: " + Point.showDistanse(point1,point2));
   }
 
   public static void hello(String somebody) {
     System.out.println("Hello, " + somebody + "!");
   }
 
-  public static double area (double len) {
-    return len * len;
-  }
-
-  public static double area (double a, double b) {
-    return a * b;
-  }
 }
