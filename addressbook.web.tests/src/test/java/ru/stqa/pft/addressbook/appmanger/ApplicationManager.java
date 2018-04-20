@@ -1,25 +1,23 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.appmanger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
-  protected ChromeDriver driver;
+public class ApplicationManager {
+  public ChromeDriver driver;
 
-  @BeforeClass
-  public void setUp() throws Exception {
+  public void init() {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     driver.get("http://localhost/addressbook/group.php");
     login("admin", "secret");
   }
 
-  private void login(String username, String password) {
+  public void login(String username, String password) {
     driver.findElement(By.name("user")).clear();
     driver.findElement(By.name("user")).sendKeys(username);
     driver.findElement(By.id("LoginForm")).click();
@@ -29,15 +27,15 @@ public class TestBase {
     driver.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
-  protected void returnToGroupPage() {
+  public void returnToGroupPage() {
     driver.findElement(By.linkText("group page")).click();
   }
 
-  protected void submitGroupCreation() {
+  public void submitGroupCreation() {
     driver.findElement(By.name("submit")).click();
   }
 
-  protected void fillGroupForm(GroupData groupData) {
+  public void fillGroupForm(GroupData groupData) {
     driver.findElement(By.name("group_name")).click();
     driver.findElement(By.name("group_name")).clear();
     driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
@@ -49,20 +47,19 @@ public class TestBase {
     driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
   }
 
-  protected void initGroupCreation() {
+  public void initGroupCreation() {
     driver.findElement(By.name("new")).click();
   }
 
-  protected void gotoGroupPage() {
+  public void gotoGroupPage() {
     driver.findElement(By.linkText("groups")).click();
   }
 
-  @AfterClass
-  public void tearDown() {
+  public void stop() {
     driver.quit();
   }
 
-  private boolean isAlertPresent(ChromeDriver driver) {
+  public boolean isAlertPresent(ChromeDriver driver) {
     try {
       driver.switchTo().alert();
       return true;
@@ -71,26 +68,26 @@ public class TestBase {
     }
   }
 
-  protected void deleteSelectedGroups() {
+  public void deleteSelectedGroups() {
     driver.findElement(By.name("delete")).click();
   }
 
-  protected void selectGroup() {
+  public void selectGroup() {
     driver.findElement(By.name("selected[]")).click();
   }
 
-  protected void submitContactCreation() {
+  public void submitContactCreation() {
     driver.findElement(By.name("submit")).click();
   }
 
-  protected void fillContactsData() {
+  public void fillContactsData() {
     driver.findElement(By.name("firstname")).sendKeys("TestFirstName");
     driver.findElement(By.name("lastname")).sendKeys("TestLastName");
     driver.findElement(By.name("company")).sendKeys("QA");
     driver.findElement(By.name("mobile")).sendKeys("89123748323");
   }
 
-  protected void gotoContactsCreationPage() {
+  public void gotoContactsCreationPage() {
     driver.findElement(By.linkText("add new")).click();
   }
 }
