@@ -4,42 +4,35 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-public class GroupHelpers {
-  private ChromeDriver driver;
+public class GroupHelpers extends HelperBase {
 
   public GroupHelpers(ChromeDriver driver) {
-    this.driver = driver;
+    super(driver);
   }
 
   public void returnToGroupPage() {
-    driver.findElement(By.linkText("group page")).click();
+    click(By.linkText("group page"));
   }
 
   public void submitGroupCreation() {
-    driver.findElement(By.name("submit")).click();
+    click(By.name("submit"));
   }
 
   public void fillGroupForm(GroupData groupData) {
-    driver.findElement(By.name("group_name")).click();
-    driver.findElement(By.name("group_name")).clear();
-    driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
-    driver.findElement(By.name("group_header")).click();
-    driver.findElement(By.name("group_header")).clear();
-    driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-    driver.findElement(By.name("group_footer")).click();
-    driver.findElement(By.name("group_footer")).clear();
-    driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
+    find_field_and_type_text(By.name("group_name"), groupData.getName());
+    find_field_and_type_text(By.name("group_header"), groupData.getHeader());
+    find_field_and_type_text(By.name("group_footer"), groupData.getFooter());
   }
 
   public void initGroupCreation() {
-    driver.findElement(By.name("new")).click();
+    click(By.name("new"));
   }
 
   public void deleteSelectedGroups() {
-    driver.findElement(By.name("delete")).click();
+    click(By.name("delete"));
   }
 
   public void selectGroup() {
-    driver.findElement(By.name("selected[]")).click();
+    click(By.name("selected[]"));
   }
 }

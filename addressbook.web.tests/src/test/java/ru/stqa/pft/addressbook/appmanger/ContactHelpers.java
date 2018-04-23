@@ -2,23 +2,23 @@ package ru.stqa.pft.addressbook.appmanger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import ru.stqa.pft.addressbook.model.ContactData;
 
-public class ContactHelpers {
+public class ContactHelpers extends HelperBase{
 
-  private ChromeDriver driver;
 
-  public ContactHelpers(ChromeDriver driver) {
-    this.driver = driver;
+  public ContactHelpers(ChromeDriver driver)  {
+    super(driver);
   }
 
   public void submitContactCreation() {
-    driver.findElement(By.name("submit")).click();
+    click(By.name("submit"));
   }
 
-  public void fillContactsData() {
-    driver.findElement(By.name("firstname")).sendKeys("TestFirstName");
-    driver.findElement(By.name("lastname")).sendKeys("TestLastName");
-    driver.findElement(By.name("company")).sendKeys("QA");
-    driver.findElement(By.name("mobile")).sendKeys("89123748323");
+  public void fillContactsData(ContactData contactData) {
+    find_field_and_type_text(By.name("firstname"),contactData.getFirstName());
+    find_field_and_type_text(By.name("lastname"), contactData.getLastName());
+    find_field_and_type_text(By.name("company"),contactData.getCompany());
+    find_field_and_type_text(By.name("mobile"),contactData.getPhone());
   }
 }

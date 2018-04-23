@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanger;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -39,17 +38,7 @@ public class ApplicationManager {
     groupHelpers = new GroupHelpers(driver);
     contactHelpers = new ContactHelpers(driver);
     navigationHelpers = new NavigationHelpers(driver);
-    login("admin", "secret");
-  }
-
-  public void login(String username, String password) {
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys(username);
-    driver.findElement(By.id("LoginForm")).click();
-    driver.findElement(By.name("pass")).click();
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys(password);
-    driver.findElement(By.xpath("//input[@value='Login']")).click();
+    sessionHelpers.login("admin", "secret");
   }
 
   public void stop() {
