@@ -11,6 +11,10 @@ public class ContactHelpers extends HelperBase{
     super(driver);
   }
 
+  public void initRemoveContact() {
+    click(By.xpath("//input[@value='Delete']"));
+  }
+
   public void submitContactCreation() {
     click(By.name("submit"));
   }
@@ -20,5 +24,21 @@ public class ContactHelpers extends HelperBase{
     find_field_and_type_text(By.name("lastname"), contactData.getLastName());
     find_field_and_type_text(By.name("company"),contactData.getCompany());
     find_field_and_type_text(By.name("mobile"),contactData.getPhone());
+  }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void approveRemoveContact() {
+    driver.switchTo().alert().accept();
+  }
+
+  public void initModifyContact() {
+    click(By.xpath("//*[@title=\"Edit\"]"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
   }
 }

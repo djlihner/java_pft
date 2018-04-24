@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanger;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -44,14 +43,4 @@ public class ApplicationManager {
   public void stop() {
     driver.quit();
   }
-
-  public boolean isAlertPresent(ChromeDriver driver) {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
 }
